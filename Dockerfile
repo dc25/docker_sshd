@@ -21,3 +21,34 @@ RUN adduser $user sudo
 
 COPY tmux.conf  /tmp
 RUN su $user -c "cp /tmp/tmux.conf ~/.tmux.conf"
+
+##########################################################
+
+COPY install_vim.sh /tmp
+RUN /tmp/install_vim.sh
+
+# COPY build_latest_vim.sh /tmp
+# RUN /tmp/build_latest_vim.sh
+
+# COPY install_neovim.sh /tmp
+# RUN /tmp/install_neovim.sh
+
+# COPY build_latest_neovim.sh /tmp
+# RUN /tmp/build_latest_neovim.sh
+
+COPY setup_vimrc.sh /tmp
+RUN su $user -c /tmp/setup_vimrc.sh
+
+# COPY setup_neovimrc.sh /tmp
+# RUN su $user -c /tmp/setup_neovimrc.sh
+
+COPY build_ctags.sh /tmp
+RUN su $user -c /tmp/build_ctags.sh
+
+COPY devbaseVimrc /tmp
+RUN su ${user} -c 'cp /tmp/devbaseVimrc ~'
+RUN su ${user} -c "echo so ~/devbaseVimrc | tee -a ~/vimrc"
+
+COPY install_vscode.sh /tmp
+RUN /tmp/install_vscode.sh
+
