@@ -33,14 +33,16 @@ RUN /tmp/install_vim.sh
 # COPY install_neovim.sh /tmp
 # RUN /tmp/install_neovim.sh
 
-# COPY build_latest_neovim.sh /tmp
-# RUN /tmp/build_latest_neovim.sh
+# Building neovim because vim-lsp "signs" work better with later version.
+# Saw this both in rust and haskell.
+COPY build_latest_neovim.sh /tmp
+RUN /tmp/build_latest_neovim.sh
 
 COPY setup_vimrc.sh /tmp
 RUN su $user -c /tmp/setup_vimrc.sh
 
-# COPY setup_neovimrc.sh /tmp
-# RUN su $user -c /tmp/setup_neovimrc.sh
+COPY setup_neovimrc.sh /tmp
+RUN su $user -c /tmp/setup_neovimrc.sh
 
 COPY build_ctags.sh /tmp
 RUN su $user -c /tmp/build_ctags.sh
