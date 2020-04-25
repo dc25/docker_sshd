@@ -24,9 +24,6 @@ sudo apt-get install -y      \
    libpthread-workqueue-dev  \
    gettext
 
-# taken from vim installs
-sudo apt-get install -y \
-
 # change to libncurses-dev when switching to ubuntu 18.10
 
 cd /tmp
