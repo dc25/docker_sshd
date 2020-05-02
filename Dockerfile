@@ -14,15 +14,19 @@ COPY start.sh  /
 
 ARG user
 ARG id
+ARG key
 
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' | tee -a /etc/sudoers
 RUN adduser --disabled-password --gecos '' --uid $id $user 
 RUN adduser $user sudo 
 
-COPY tmux.conf  /tmp
-
 USER $user
 
+RUN mkdir -p ~/.ssh
+RUN echo $key > ~/.ssh/authorized_keys
+RUN chmod 600 ~/.ssh/authorized_keys
+
+COPY tmux.conf  /tmp
 RUN cp /tmp/tmux.conf ~/.tmux.conf
 
 ##########################################################

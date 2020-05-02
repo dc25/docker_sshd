@@ -9,7 +9,10 @@ function dob
 {
     image=$1
     shift
-    sudo docker build -t $image $* --build-arg user=`id -u -n` --build-arg id=`id -u`  .
+    dockr build -t $image $* --build-arg user=`id -u -n` \
+                             --build-arg id=`id -u`  \
+                             --build-arg key="`cat ~/.ssh/id_rsa.pub`"  \
+                             .
 }
 
 ## docker run with user name and public key passed on command line
@@ -17,7 +20,13 @@ function dor
 {
     image=$1
     shift
-    sudo docker run --privileged -it $* --entrypoint '/start.sh' $image `id -u -n` "`cat ~/.ssh/id_rsa.pub`"
+    dockr run --privileged -it $* --entrypoint '/start.sh' $image 
+}
+
+# customize as needed
+function dorm
+{
+    dor $1 -v /home/dave/repos:/repos 
 }
 
 ## ssh into running docker
