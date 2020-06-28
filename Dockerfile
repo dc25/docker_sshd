@@ -1,4 +1,4 @@
-FROM ubuntu:19.10
+FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -60,4 +60,7 @@ RUN echo so ~/devbaseVimrc | tee -a ~/vimrc
 
 COPY install_vscode.sh /tmp
 RUN /tmp/install_vscode.sh
+
+# remember for future use; some scripts depend on USER being set
+ENV USER $user
 
