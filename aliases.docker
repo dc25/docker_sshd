@@ -33,7 +33,7 @@ function dorm
 ## ssh into running docker
 function dosh
 {
-    container=`sudo docker ps -q`
-    ip=`sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' $container | head -n 1`
-    ssh $ip -YC -t 'tmux a || tmux || /bin/bash'
+    ## container=`sudo docker ps -q`
+    ## ip=`sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' $container | head -n 1`
+    ssh localhost -p 20022 -YC -t 'tmux a || tmux || /bin/bash'
 }

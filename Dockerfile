@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     tmux 
 
 RUN echo "X11UseLocalhost no" | tee -a /etc/ssh/sshd_config
+RUN echo "Port 20022" | sudo tee -a /etc/ssh/sshd_config
 
 COPY start.sh  /
 RUN chmod 777 /start.sh
@@ -65,4 +66,3 @@ RUN /tmp/install_vscode.sh
 # remember for future use; some scripts depend on USER being set
 ENV USER $user
 
-RUN echo "Port 20022" | sudo tee -a /etc/ssh/sshd_config
