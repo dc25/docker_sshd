@@ -64,3 +64,5 @@ RUN /tmp/install_vscode.sh
 
 # remember for future use; some scripts depend on USER being set
 ENV USER $user
+
+RUN echo "Port 20022" | sudo tee -a /etc/ssh/sshd_config
