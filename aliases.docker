@@ -1,6 +1,7 @@
 ## run docker as sudo
 function dockr
 {
+    # podman "$@"
     sudo docker "$@"
 }
 
@@ -19,15 +20,13 @@ function dob
 ## docker run with user name and public key passed on command line
 function dor
 {
-    image=$1
-    shift
-    dockr run --privileged -it $* --entrypoint '/start.sh' $image 
+    dockr run  --detach  --net=host --entrypoint /start.sh $@
 }
 
 # customize as needed
 function dorm
 {
-    dor $1 --net=host -v ${REPOS}:/repos
+    dor -v ${REPOS}:/repos $1
 }
 
 ## ssh into running docker
