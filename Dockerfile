@@ -63,6 +63,8 @@ RUN echo so ~/devbaseVimrc | tee -a ~/vimrc
 COPY --chown=$user install_vscode.sh /tmp
 RUN /tmp/install_vscode.sh
 
+EXPOSE 20022
+
 # remember for future use; some scripts depend on USER being set
 ENV USER $user
 
