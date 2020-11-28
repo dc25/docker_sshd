@@ -1,8 +1,8 @@
 ## run docker as sudo
 function dockr
 {
-    # podman "$@"
-    sudo docker "$@"
+    podman "$@"
+    # sudo docker "$@"
 }
 
 ## docker build with 'user' and 'id' arguments
@@ -20,7 +20,7 @@ function dob
 ## docker run with user name and public key passed on command line
 function dor
 {
-    dockr run  --detach  --net=host --entrypoint /start.sh $@
+    dockr run  --rm --userns=keep-id --entrypoint /start.sh -P $@
 }
 
 # customize as needed
@@ -32,7 +32,8 @@ function dorm
 ## ssh into running docker
 function dosh
 {
-    ## container=`sudo docker ps -q`
-    ## ip=`sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' $container | head -n 1`
+    # container=`podman ps -q`
+    # ip=`podman inspect --format '{{ .NetworkSettings.IPAddress }}' $container | head -n 1`
+    # ssh $ip -p 20022 -YC -t 'tmux a || tmux || /bin/bash'
     ssh localhost -p 20022 -YC -t 'tmux a || tmux || /bin/bash'
 }
