@@ -20,7 +20,7 @@ function dob
 ## docker run with user name and public key passed on command line
 function dor
 {
-    dockr run  --rm --userns=keep-id --entrypoint /start.sh -P $@
+    dockr run  --privileged --rm --userns=keep-id --entrypoint /start.sh -P $@
 }
 
 # customize as needed
