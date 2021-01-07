@@ -1,8 +1,8 @@
 ## run docker as sudo
 function dockr
 {
-    podman "$@"
-    # sudo docker "$@"
+    # podman "$@"
+    sudo docker "$@"
 }
 
 ## docker build with 'user' and 'id' arguments
@@ -18,15 +18,25 @@ function dob
 }
 
 ## docker run with user name and public key passed on command line
-function dor
+function doex
 {
-    dockr run  --privileged --rm --userns=keep-id --entrypoint /start.sh -P $@
+  # for podman ( not docker)
+  dockr run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --network host --privileged --rm --userns=keep-id -P $@
+
+  # for docker ( not podman)
+  # dockr run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --network host --privileged --rm                  -P $@
 }
 
 # customize as needed
-function dorm
+function doexv
 {
-    dor -v ${REPOS}:/repos $1
+    doex -v ${REPOS}:${REPOS} -w `pwd` $@
+}
+
+## docker run with user name and public key passed on command line
+function doexr
+{
+    doexv --entrypoint /runexec.sh $@
 }
 
 ## ssh into running docker

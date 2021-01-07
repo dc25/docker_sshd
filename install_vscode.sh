@@ -6,10 +6,14 @@ sudo apt-get install -y \
     gpg  \
     libxss-dev \
     libasound2-dev \
-    libx11-xcb-dev 
+    libx11-xcb-dev \
+    libxcb-dri3-dev
 
+# Without xterm the vscode window is all white.
+sudo apt-get install -y \
+    xterm
 
-export WORKDIR=$HOME/workarea
+export WORKDIR=/tmp/workarea
 mkdir -p $WORKDIR
 cd $WORKDIR
 
