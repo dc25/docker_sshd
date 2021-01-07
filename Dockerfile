@@ -14,9 +14,6 @@ RUN echo "Port 20022" | sudo tee -a /etc/ssh/sshd_config
 COPY runexec.sh  /
 RUN chmod 777 /runexec.sh
 
-COPY start.sh  /
-RUN chmod 777 /start.sh
-
 ARG user
 ARG id
 ARG key
