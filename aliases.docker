@@ -21,10 +21,11 @@ function dob
 function doex
 {
   # for podman ( not docker)
-  # dockr run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --network host --privileged --rm --userns=keep-id -P $@
+  # Without keep-id, mounted dirs belong to root and can't be accessed.
+  # dockr run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --network host --privileged --rm -P --userns=keep-id $@
 
   # for docker ( not podman)
-  dockr run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --network host --privileged --rm                  -P $@
+  dockr run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --network host --privileged --rm -P                  $@
 }
 
 # customize as needed
