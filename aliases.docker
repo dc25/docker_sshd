@@ -8,17 +8,15 @@ function dockr
 ## docker build with 'user' and 'id' arguments
 function dob
 {
-    image=$1
-    shift
     time \
-    dockr build -t $image $* --build-arg user=`id -u -n` \
-                             --build-arg id=`id -u`  \
-                             --build-arg key="`cat ~/.ssh/id_rsa.pub`"  \
-                             .
+    dockr build --build-arg user=`id -u -n` \
+                --build-arg id=`id -u`  \
+                --build-arg key="`cat ~/.ssh/id_rsa.pub`"  \
+                $@
 }
 
 ## docker run with user name and public key passed on command line
-function doex
+function dx
 {
   # for podman ( not docker)
   # Without keep-id, mounted dirs belong to root and can't be accessed.
@@ -29,15 +27,15 @@ function doex
 }
 
 # customize as needed
-function doexv
+function dxv
 {
-    doex -v ${REPOS}:${REPOS} -w `pwd` $@
+    dx -v ${REPOS}:${REPOS} -w `pwd` $@
 }
 
 ## docker run with user name and public key passed on command line
-function doexr
+function dxr
 {
-    doexv --entrypoint /runexec.sh $@
+    dxv --entrypoint /runexec.sh $@
 }
 
 ## ssh into running docker
