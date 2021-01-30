@@ -1,4 +1,4 @@
-FROM rust
+FROM devbase
 ARG key
 EXPOSE 20022
 COPY --chown=$USER setup_ssh.sh  /tmp
