@@ -1,48 +1,22 @@
-## run docker as sudo
-function dockr
-{
-    # podman "$@"
-    sudo docker "$@"
-}
-
-## docker build with 'user' and 'id' arguments
-function dob
+function cobk
 {
     time \
-    dockr build --build-arg user=`id -u -n` \
-                --build-arg id=`id -u`  \
-                --build-arg key="`cat ~/.ssh/id_rsa.pub`"  \
-                $@
-}
-
-## docker run with user name and public key passed on command line
-function dx
-{
-  # for podman ( not docker)
-  # Without keep-id, mounted dirs belong to root and can't be accessed.
-  # dockr run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --network host --privileged --rm -P --userns=keep-id $@
-
-  # for docker ( not podman)
-  dockr run -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --network host --privileged --rm -P                  $@
+    cnr build --build-arg key="`cat ~/.ssh/id_rsa.pub`"  $@
 }
 
 # customize as needed
-function dxv
+function cxr
 {
-    dx -v ${REPOS}:${REPOS} -w `pwd` $@
+    cx --entrypoint=/runexec.sh $@
 }
 
-## docker run with user name and public key passed on command line
-function dxr
-{
-    dxv --entrypoint /runexec.sh $@
-}
-
-## ssh into running docker
-function dosh
+## ssh into running container
+function cosh
 {
     # container=`podman ps -q`
     # ip=`podman inspect --format '{{ .NetworkSettings.IPAddress }}' $container | head -n 1`
     # ssh $ip -p 20022 -YC -t 'tmux a || tmux || /bin/bash'
-    ssh localhost -p 20022 -YC -t 'tmux a || tmux || /bin/bash'
+    ssh localhost -l dev -p 20022 -YC -t 'tmux a || tmux || /bin/bash'
 }
+
+
