@@ -1,4 +1,5 @@
-FROM devbase
+ARG base=devbase
+FROM "$base"
 ARG key
 EXPOSE 20022
 COPY --chown=$USER setup_ssh.sh  /tmp
